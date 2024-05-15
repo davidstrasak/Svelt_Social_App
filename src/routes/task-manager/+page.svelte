@@ -2,6 +2,7 @@
   import TaskList from "$lib/task-manager/TaskList.svelte";
   // import { taskListStore } from "../../stores/tasks.js";
   import { taskListStore } from "$stores/tasks.js";
+  import { onDestroy } from "svelte";
 
   const listName = "Hi There!";
   const taskList = [
@@ -33,9 +34,27 @@
       ]
     }
   ];
+
+  let _taskList;
+  const unsub = taskListStore.subscribe((value) => {
+    console.log(value);
+    _taskList = value;
+  });
+
+  let i = 0;
+  setInterval(() => {
+    taskListStore.update((list) => [...list, i++]);
+  }, 1000);
+
+  onDestroy(() => {
+    unsub();
+    console.log("Task Manager Page Destroyed");
+  });
 </script>
 
 <div class="p-10 h-full">
+  <a class="text-white" href="/">Back to /</a>
+  <div class="text-white">{JSON.stringify(_taskList)}</div>
   <div class="text-white text-2xl mb-6">Some List</div>
   <button class="text-xl mb-3 text-white font-bold cursor-pointer hover:underline flex items-start">
     + Add List
