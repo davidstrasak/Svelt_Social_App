@@ -1,5 +1,7 @@
 <script>
   import TaskList from "$lib/task-manager/TaskList.svelte";
+  // import { taskListStore } from "../../stores/tasks.js";
+  import { taskListStore } from "$stores/tasks.js";
 
   const listName = "Hi There!";
   const taskList = [
