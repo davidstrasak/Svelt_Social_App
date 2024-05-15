@@ -1,6 +1,7 @@
 <script>
   import TaskItem from "$lib/task-manager/TaskItem.svelte";
-  export let listName = "default";
+  export let listName = "default name";
+  export let tasks = [];
 </script>
 
 <!-- TASK LIST START -->
@@ -30,10 +31,9 @@
       </div>
     </div>
     <div class="overflow-x-hidden overflow-y-auto with-scrollbar p-2">
-      <TaskItem taskDescription="Learn Svelte" />
-      <TaskItem />
-      <TaskItem />
-      <TaskItem />
+      {#each tasks as task (task.id)}
+        <TaskItem taskDescription={task.text} />
+      {/each}
     </div>
     <button class="underline flex p-2"> + Add Task </button>
   </div>
