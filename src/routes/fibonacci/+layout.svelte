@@ -1,3 +1,3 @@
 <div class="p-20">
-	<slot />
+  <slot />
 </div>
