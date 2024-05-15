@@ -43,7 +43,6 @@
       {#each taskList as list (list.id)}
         <TaskList listName={list.text} tasks={list.items} />
       {/each}
-      <!-- test -->
     </div>
   </div>
 </div>
