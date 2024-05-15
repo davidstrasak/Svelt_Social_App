@@ -1,4 +1,7 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
   export let value;
   let isEditing = false;
 </script>
@@ -10,6 +13,7 @@
       class="flex underline"
       on:click={() => {
         isEditing = false;
+        dispatch("editCancel", { text: value, rick: "roll" });
       }}>Close</button
     >
   </div>

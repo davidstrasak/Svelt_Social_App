@@ -1,14 +1,18 @@
 <script>
   import Editable from "$lib/task-manager/Editable.svelte";
   export let task;
-  let taskDescription = task.text;
+  let value = task.text;
+
+  function updateTask(event) {
+    console.log(event.detail.rick);
+  }
 </script>
 
 <div class="flex-it border border-solid p-2 rounded-xl bg-slate-500 mb-2 cursor-pointer">
   <div class="flex-it">
-    <Editable bind:value={taskDescription}>
+    <Editable bind:value on:editCancel={updateTask}>
       <div class="flex-it flex-row">
-        <div class="flex flex-1">{taskDescription}</div>
+        <div class="flex flex-1">{task.text}</div>
         <div class="flex items-end hover:text-red-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
