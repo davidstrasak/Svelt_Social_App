@@ -6,11 +6,14 @@
   function updateTask(event) {
     task.text = event.detail.text;
   }
+  function deUpdateTask() {
+    value = task.text;
+  }
 </script>
 
 <div class="flex-it border border-solid p-2 rounded-xl bg-slate-500 mb-2 cursor-pointer">
   <div class="flex-it">
-    <Editable bind:value on:editCancel={updateTask}>
+    <Editable bind:value on:editFinish={updateTask} on:editCancel={deUpdateTask}>
       <div class="flex-it flex-row">
         <div class="flex flex-1">{task.text}</div>
         <div class="flex items-end hover:text-red-600">

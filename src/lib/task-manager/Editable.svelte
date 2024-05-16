@@ -8,12 +8,24 @@
 
 {#if isEditing}
   <div class="flex-it">
-    <textarea bind:value />
+    <textarea
+      bind:value
+      on:keydown={(event) => {
+        if (event.key === "Enter") {
+          isEditing = false;
+          dispatch("editFinish", { text: value });
+        }
+        if (event.key === "Escape") {
+          isEditing = false;
+          dispatch("editCancel", { text: value });
+        }
+      }}
+    />
     <button
       class="flex underline"
       on:click={() => {
         isEditing = false;
-        dispatch("editCancel", { text: value });
+        dispatch("editFinish", { text: value });
       }}>Close</button
     >
   </div>
