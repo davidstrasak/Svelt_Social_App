@@ -67,7 +67,10 @@ function createStore() {
       update((list) => {
         const { items } = list[listIdx];
 
-        list[listIdx].items = [...items, { id: new Date().toISOString(), text: "What to do?" }];
+        list[listIdx].items = [
+          ...items,
+          { id: new Date().toISOString(), text: "What to do?", isEditing: true }
+        ];
         return list;
       });
     },
@@ -77,6 +80,9 @@ function createStore() {
         list[moveToListIdx].items.push(task);
         return list;
       });
+    },
+    removeTask: () => {
+      alert("removeTask");
     }
   };
 }

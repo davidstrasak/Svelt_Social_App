@@ -4,7 +4,7 @@
   const dispatch = createEventDispatcher();
 
   export let value;
-  let isEditing = false;
+  export let isEditing = false;
 
   //This focuses the textarea that appears when you click a task
   let textarea;
