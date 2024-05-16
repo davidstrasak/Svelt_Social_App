@@ -1,20 +1,8 @@
 <script>
   import TaskItem from "$lib/task-manager/TaskItem.svelte";
-  import { taskListStore } from "$stores/tasks.js";
-  import { onDestroy } from "svelte";
 
   export let listName = "default name";
   export let tasks = [];
-
-  let taskList;
-  const unsub = taskListStore.subscribe((value) => {
-    taskList = value;
-  });
-
-  onDestroy(() => {
-    console.log("Task List Destroyed");
-    unsub();
-  });
 </script>
 
 <!-- TASK LIST START -->
@@ -42,10 +30,6 @@
           </svg>
         </div>
       </div>
-    </div>
-
-    <div>
-      {JSON.stringify(taskList)}
     </div>
 
     <div class="overflow-x-hidden overflow-y-auto with-scrollbar p-2">
