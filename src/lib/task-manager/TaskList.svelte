@@ -1,7 +1,15 @@
+<script context="module">
+  import { writable } from "svelte/store";
+  let listHoverId = writable(null);
+</script>
+
 <script>
   import TaskItem from "./TaskItem.svelte";
   import { taskListStore } from "$stores/tasks";
   import Editable from "./Editable.svelte";
+  import { send } from "../../transitions";
+  import { flip } from "svelte/animate";
+  import { fly } from "svelte/transition";
 
   export let list;
   export let listIdx;
@@ -17,6 +25,7 @@
   function drop(e) {
     const sourceData = JSON.parse(e.dataTransfer.getData("text/plain"));
     taskListStore.moveTask(sourceData, listIdx);
+    listHoverId.set(null);
   }
 </script>
 
@@ -25,7 +34,11 @@
     role="list"
     class="bg-slate-400 flex-it rounded-xl max-h-full border-2 border-gray-500"
     on:drop={drop}
+    on:dragenter={() => {
+      listHoverId.set(list.id);
+    }}
     on:dragover|preventDefault={() => {}}
+    class:hovering={$listHoverId === list.id}
   >
     <div class="flex-it m-3">
       <div class="flex-it flex-row">
@@ -54,7 +67,9 @@
     </div>
     <div class="overflow-x-hidden overflow-y-auto with-scrollbar p-2">
       {#each list.items as task, taskIdx (task.id)}
-        <TaskItem {task} {listIdx} {taskIdx} />
+        <div in:fly={{ y: -200 }} out:send={{ key: task.id }} animate:flip={{ duration: 100 }}>
+          <TaskItem {task} {listIdx} {taskIdx} />
+        </div>
       {/each}
     </div>
     <button
@@ -67,3 +82,9 @@
     </button>
   </div>
 </div>
+
+<style>
+  .hovering {
+    border: 2px solid orange;
+  }
+</style>
