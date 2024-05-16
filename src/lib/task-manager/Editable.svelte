@@ -3,10 +3,11 @@
   import { afterUpdate } from "svelte";
   const dispatch = createEventDispatcher();
 
-  let textarea;
   export let value;
   let isEditing = false;
 
+  //This focuses the textarea that appears when you click a task
+  let textarea;
   afterUpdate(() => {
     if (isEditing) {
       textarea.focus();

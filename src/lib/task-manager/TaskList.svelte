@@ -1,5 +1,6 @@
 <script>
   import TaskItem from "./TaskItem.svelte";
+  import { taskListStore } from "$stores/tasks";
 
   export let listName;
   export let tasks;
@@ -36,6 +37,13 @@
         <TaskItem {task} {listIdx} />
       {/each}
     </div>
-    <button class="underline flex p-2"> + Add Task </button>
+    <button
+      class="underline flex p-2"
+      on:click={() => {
+        taskListStore.addTask(listIdx);
+      }}
+    >
+      + Add Task
+    </button>
   </div>
 </div>
