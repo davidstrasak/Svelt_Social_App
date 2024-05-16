@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-const DEFAUL_DATA = [
+const DEFAULT_DATA = [
   {
     id: "l-1",
     text: "List 1",
@@ -31,7 +31,7 @@ const DEFAUL_DATA = [
 ];
 
 function createStore() {
-  const taskList = writable(DEFAUL_DATA);
+  const taskList = writable(DEFAULT_DATA);
   const { subscribe } = taskList;
 
   return {
