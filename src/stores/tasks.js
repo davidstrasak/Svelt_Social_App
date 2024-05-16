@@ -31,7 +31,10 @@ const DEFAULT_DATA = [
 ];
 
 function createStore() {
-  const taskList = writable(DEFAULT_DATA);
+  const storedList = localStorage.getItem("task-manager-store");
+  const _taskList = storedList ? JSON.parse(storedList) : DEFAULT_DATA;
+
+  const taskList = writable(_taskList);
   const { subscribe, update } = taskList;
 
   return {
@@ -79,3 +82,7 @@ function createStore() {
 }
 
 export const taskListStore = createStore();
+
+taskListStore.subscribe((list) => {
+  localStorage.setItem("task-manager-store", JSON.stringify(list));
+});
