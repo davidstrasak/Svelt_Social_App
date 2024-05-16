@@ -2,16 +2,25 @@
   import TaskItem from "./TaskItem.svelte";
   import { taskListStore } from "$stores/tasks";
 
-  export let listName;
-  export let tasks;
+  export let list;
   export let listIdx;
+
+  function drop(e) {
+    const sourceData = JSON.parse(e.dataTransfer.getData("text/plain"));
+    taskListStore.moveTask(sourceData, listIdx);
+  }
 </script>
 
 <div class="flex-it h-full w-80 max-w-sm min-h-full m-2 my-0">
-  <div class="bg-slate-400 flex-it rounded-xl max-h-full border-2 border-gray-500">
+  <div
+    role="list"
+    class="bg-slate-400 flex-it rounded-xl max-h-full border-2 border-gray-500"
+    on:drop={drop}
+    on:dragover|preventDefault={() => {}}
+  >
     <div class="flex-it m-3">
       <div class="flex-it flex-row">
-        <div class="text-xl text-left font-bold mr-2">{listName}</div>
+        <div class="text-xl text-left font-bold mr-2">{list.text}</div>
         <div class="flex hover:text-red-600 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,8 +42,8 @@
       </div>
     </div>
     <div class="overflow-x-hidden overflow-y-auto with-scrollbar p-2">
-      {#each tasks as task (task.id)}
-        <TaskItem {task} {listIdx} />
+      {#each list.items as task, taskIdx (task.id)}
+        <TaskItem {task} {listIdx} {taskIdx} />
       {/each}
     </div>
     <button

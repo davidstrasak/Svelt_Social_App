@@ -53,7 +53,7 @@ function createStore() {
           ...list,
           {
             id: new Date().toISOString(),
-            text: "New List",
+            text: `List ${list.length + 1}`,
             items: []
           }
         ];
@@ -64,6 +64,13 @@ function createStore() {
         const { items } = list[listIdx];
 
         list[listIdx].items = [...items, { id: new Date().toISOString(), text: "What to do?" }];
+        return list;
+      });
+    },
+    moveTask: (sourceData, moveToListIdx) => {
+      update((list) => {
+        const [task] = list[sourceData.listIdx].items.splice(sourceData.taskIdx, 1);
+        list[moveToListIdx].items.push(task);
         return list;
       });
     }

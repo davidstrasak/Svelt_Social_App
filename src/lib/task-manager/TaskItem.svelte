@@ -4,6 +4,7 @@
 
   export let task;
   export let listIdx;
+  export let taskIdx;
 
   let value = task.text;
 
@@ -19,9 +20,19 @@
   function cancelTask() {
     value = task.text;
   }
+  function dragStart(e) {
+    const data = { listIdx, taskIdx };
+    e.dataTransfer.setData("text/plain", JSON.stringify(data));
+  }
 </script>
 
-<div class="flex-it border border-solid p-2 rounded-xl bg-slate-500 mb-2 cursor-pointer">
+<div
+  class="flex-it border border-solid p-2 rounded-xl bg-slate-500 mb-2 cursor-pointer"
+  draggable="true"
+  on:dragstart={dragStart}
+  role="button"
+  tabindex="0"
+>
   <div class="flex-it">
     <Editable bind:value on:editFinished={updateTask} on:editCanceled={cancelTask}>
       <div class="flex-it flex-row">
