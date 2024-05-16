@@ -1,10 +1,10 @@
 <script>
   import Editable from "$lib/task-manager/Editable.svelte";
+
   export let task;
   let value = task.text;
-
   function updateTask(event) {
-    console.log(event.detail.rick);
+    task.text = event.detail.text;
   }
 </script>
 

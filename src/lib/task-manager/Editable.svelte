@@ -13,7 +13,7 @@
       class="flex underline"
       on:click={() => {
         isEditing = false;
-        dispatch("editCancel", { text: value, rick: "roll" });
+        dispatch("editCancel", { text: value });
       }}>Close</button
     >
   </div>
