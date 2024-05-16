@@ -1,15 +1,24 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import { afterUpdate } from "svelte";
   const dispatch = createEventDispatcher();
 
+  let textarea;
   export let value;
   let isEditing = false;
+
+  afterUpdate(() => {
+    if (isEditing) {
+      textarea.focus();
+    }
+  });
 </script>
 
 {#if isEditing}
   <div class="flex-it">
     <textarea
       bind:value
+      bind:this={textarea}
       on:keydown={(event) => {
         if (event.key === "Enter") {
           isEditing = false;
