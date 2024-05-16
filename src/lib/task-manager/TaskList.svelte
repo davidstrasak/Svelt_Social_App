@@ -1,10 +1,19 @@
 <script>
   import TaskItem from "./TaskItem.svelte";
   import { taskListStore } from "$stores/tasks";
+  import Editable from "./Editable.svelte";
 
   export let list;
   export let listIdx;
 
+  let value = list.text;
+
+  function updateTask(event) {
+    list.text = event.detail.taskText;
+  }
+  function cancelTask() {
+    value = list.text;
+  }
   function drop(e) {
     const sourceData = JSON.parse(e.dataTransfer.getData("text/plain"));
     taskListStore.moveTask(sourceData, listIdx);
@@ -20,7 +29,9 @@
   >
     <div class="flex-it m-3">
       <div class="flex-it flex-row">
-        <div class="text-xl text-left font-bold mr-2">{list.text}</div>
+        <Editable bind:value on:editFinished={updateTask} on:editCanceled={cancelTask}>
+          <div class="text-xl text-left font-bold mr-2">{list.text}</div>
+        </Editable>
         <div class="flex hover:text-red-600 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
