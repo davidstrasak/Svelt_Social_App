@@ -69,7 +69,7 @@ function createStore() {
 
         list[listIdx].items = [
           ...items,
-          { id: new Date().toISOString(), text: "What to do?", isEditing: true }
+          { id: new Date().toISOString(), text: "", isEditing: true }
         ];
         return list;
       });
@@ -81,8 +81,11 @@ function createStore() {
         return list;
       });
     },
-    removeTask: () => {
-      alert("removeTask");
+    removeTask: (listIdx, itemIdx) => {
+      update((list) => {
+        list[listIdx].items.splice(itemIdx, 1);
+        return list;
+      });
     }
   };
 }
