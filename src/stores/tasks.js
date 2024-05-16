@@ -1,18 +1,6 @@
 import { writable } from "svelte/store";
 
-function createStore() {
-  const taskList = writable([], (set) => {
-    set(DEFAULT_DATA);
-
-    return () => {};
-  });
-
-  return taskList;
-}
-
-export const taskListStore = createStore();
-
-const DEFAULT_DATA = [
+const DEFAUL_DATA = [
   {
     id: "l-1",
     text: "List 1",
@@ -41,3 +29,28 @@ const DEFAULT_DATA = [
     ]
   }
 ];
+
+function createStore() {
+  const taskList = writable(DEFAUL_DATA);
+  const { subscribe } = taskList;
+
+  return {
+    subscribe,
+    updateTask: (task, listIdx) => {
+      taskList.update((list) => {
+        const taskIdx = list[listIdx].items.findIndex((item) => item.id === task.id);
+
+        if (taskIdx > -1) {
+          list[listIdx].items[taskIdx] = { ...task };
+        }
+
+        return list;
+      });
+    },
+    addList: () => {
+      alert("Adding!");
+    }
+  };
+}
+
+export const taskListStore = createStore();
