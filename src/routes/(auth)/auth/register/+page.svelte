@@ -1,6 +1,5 @@
 <script>
   import AuthLayout from "$lib/layouts/AuthLayout.svelte";
-  dispatchEvent(new CustomEvent("title", { detail: "Create an account" }));
 </script>
 
 <AuthLayout title="Create an account">
