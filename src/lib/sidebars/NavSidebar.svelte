@@ -1,5 +1,7 @@
 <script>
-  import navLinks from "./navLinks";
+  import Popup from "$lib/utils/Popup.svelte";
+  import TiSocialFlickr from "svelte-icons/ti/TiSocialFlickr.svelte";
+  import { navLinks } from "./navLinks";
 </script>
 
 <header class="lg:flex-grow flex-it items-end">
@@ -32,9 +34,48 @@
                   </div>
                 </a>
               {/each}
-              <!-- <FiMoreHorizontal /> -->
             </nav>
           </div>
+          <!-- GLIDER SEND-MESSAGE BUTTON -->
+          <div class="my-1 flex-it w-10/12 cursor-pointer">
+            <div
+              class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full flex-it transition"
+            >
+              <div
+                class="flex-it flex-row text-xl font-bold text-white items-start justify-center truncate duration-200"
+              >
+                <div>Glide It</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- PROFILE MENU -->
+
+        <div class="flex-it my-3 hover:cursor-pointer">
+          <Popup>
+            <div
+              class="flex-it items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200 cursor-pointer"
+            >
+              <div class="flex-it">
+                <div class="w-10 h-10 overflow-visible">
+                  <img
+                    alt=""
+                    class="rounded-full"
+                    src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
+                  />
+                </div>
+              </div>
+              <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
+                <div class="flex-it mx-3 font-bold">Filip99</div>
+                <div class="flex-it">
+                  <div class="icon">
+                    <TiSocialFlickr />
+                  </div>
+                  <!-- <FiMoreHorizontal /> -->
+                </div>
+              </div>
+            </div>
+          </Popup>
         </div>
       </div>
     </div>
